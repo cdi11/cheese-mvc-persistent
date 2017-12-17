@@ -9,9 +9,6 @@ import java.util.List;
 @Entity
 public class Category  {
 
-
-
-
     @Id
     @GeneratedValue
     private int id;
@@ -40,5 +37,5 @@ public class Category  {
         return cheeses;
     }
 
-    public void setCheeses(List<Cheese>cheeses) { this.cheeses = cheeses; }
+
 }

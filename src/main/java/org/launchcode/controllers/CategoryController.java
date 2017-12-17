@@ -1,9 +1,7 @@
 package org.launchcode.controllers;
 
 import org.launchcode.models.Category;
-import org.launchcode.models.Cheese;
 import org.launchcode.models.data.CategoryDao;
-import org.launchcode.models.data.CheeseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -29,19 +28,19 @@ public class CategoryController {
         model.addAttribute("categories", categoryDao.findAll());
         model.addAttribute("title", "Categories");
 
-        return "categories/index";
+        return "category/index";
     }
 
-    @RequestMapping(value = "category/add", method = RequestMethod.GET)
-    public String displayAddCheeseForm(Model model) {
+    @RequestMapping(value = "add", method = RequestMethod.GET)
+    public String displayAddCategoryForm(Model model) {
         model.addAttribute("title", "Add Category");
-        model.addAttribute(new Category());
+        model.addAttribute("category", new Category());
 
         return "category/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(Model model, @ModelAttribute @Valid Category Category, Errors errors) {
+    public String add(Model model, @ModelAttribute @Valid Category category, Errors errors) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Category");
@@ -49,9 +48,18 @@ public class CategoryController {
             return "category/add";
 
         }
-            categoryDao.save(Category);
-            return "redirect:";
+        categoryDao.save(category);
+        return "redirect:";
 
 
     }
+    //@RequestMapping(value="category", method = RequestMethod.GET)
+    //public String category(Model model, @RequestParam int id) {
+
+      //  Category cat = categoryDao.findOne(id);
+      //  List<Cheese> cheeses = cat.getCheeses();
+      //  model.addAttribute("cheeses", cheeses);
+      //  model.addAttribute("title", "Cheeses in Category; " + cat.getName());
+      //  return "cheese/index";
+    //}
 }
